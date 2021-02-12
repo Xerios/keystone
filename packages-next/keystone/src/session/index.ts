@@ -4,7 +4,7 @@ import Iron from '@hapi/iron';
 import {
   SessionStrategy,
   JSONValue,
-  SessionStoreFunction,
+  SessionStore,
   SessionContext,
   CreateContext,
   SessionImplementation,
@@ -28,6 +28,7 @@ type StatelessSessionsOptions = {
   secret: string;
   /**
    * Iron seal options for customizing the key derivation algorithm used to generate encryption and integrity verification keys as well as the algorithms and salt sizes used.
+   * See {@link https://hapi.dev/module/iron/api/?v=6.0.0#options} for available options.
    *
    * @default Iron.defaults
    */
@@ -168,15 +169,14 @@ export function statelessSessions<T>({
 }
 
 export function storedSessions({
-  store: storeOption,
+  store,
   maxAge = MAX_AGE,
   ...statelessSessionsOptions
 }: {
-  store: SessionStoreFunction;
+  store: SessionStore;
 } & StatelessSessionsOptions): () => SessionStrategy<JSONValue> {
   return () => {
     let { get, start, end } = statelessSessions({ ...statelessSessionsOptions, maxAge })();
-    let store = typeof storeOption === 'function' ? storeOption({ maxAge }) : storeOption;
     return {
       connect: store.connect,
       disconnect: store.disconnect,

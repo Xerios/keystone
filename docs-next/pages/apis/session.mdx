@@ -2,6 +2,77 @@ import { Markdown } from '../../components/Page';
 
 # Session API
 
+The `session` property of the [system configuration](./config) object allows you to configure session management of your Keystone system.
+It has a TypeScript type of `() => SessionStrategy<any>`.
+In general you will use functions from the `@keystone-next/keystone/session` package, rather than writing this function yourself.
+
+```typescript
+import { statelessSessions, withItemData } from '@keystone-next/keystone/session';
+
+export default config({
+  session: withItemData(
+    statelessSessions({
+      secret: 'ABCDEFGH1234567887654321HGFEDCBA',
+      ironOptions: {
+        /* ... */
+      },
+      maxAge: 60 * 60 * 24,
+      secure: true,
+      path: '/',
+    }),
+    { User: 'name isAdmin' }
+  ),
+  /* ... */
+});
+```
+
+## Stateless vs stored sessions
+
+Keystone supports both stateless and stored sessions.
+In a stateless session all session data is stored in a cookie.
+In a stored session a session ID is stored in the cookie, and this ID is used to save and load data from a data store on the server.
+All cookies are encrypted with [`@hapi/iron`](https://hapi.dev/module/iron/).
+
+Both `statelessSessions()` and `storedSessions()` accept a common set of arguments which control the behaviour of the cookies.
+`storedSessions()` accepts an additional `store` argument, which is an object capable of loading and storing session data.
+
+```typescript
+import { statelessSessions, storedSessions } from '@keystone-next/keystone/session';
+
+export default config({
+  // Stateless
+  session: statelessSessions({
+    /* ... */
+  }),
+
+  // Stored
+  session: storedSessions({
+    store: {
+      /* ... */
+    } /* ... */,
+  }),
+  /* ... */
+});
+```
+
+Options
+
+- secret
+- ironOptions
+- maxAge
+- secure
+- path
+
+### Session stores
+
+(coming soon)
+
+## Session context
+
+(coming soon)
+
+## Authed item data
+
 (coming soon)
 
 export default ({ children }) => <Markdown>{children}</Markdown>;

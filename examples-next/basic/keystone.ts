@@ -49,7 +49,7 @@ export default auth.withAuth(
     // TODO -- Create a separate example for stored/redis sessions
     // session: storedSessions({
     //   store: new Map(),
-    //   // store: redisSessionStore({ client: redis.createClient() }),
+    //   // store: redisSessionStore({ client: redis.createClient(), maxAge: 60 * 60 *8 }),
     //   secret: sessionSecret,
     // }),
   })

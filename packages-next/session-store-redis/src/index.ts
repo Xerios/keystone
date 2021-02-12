@@ -1,17 +1,18 @@
 import type { RedisClient } from 'redis';
 import { promisify } from 'util';
-import type { SessionStoreFunction } from '@keystone-next/types';
+import type { SessionStore } from '@keystone-next/types';
 
 type Options = {
   /** An initialised redis client from the `redis` npm package */
   client: RedisClient;
+  maxAge: number;
 };
-export const redisSessionStore = ({ client }: Options): SessionStoreFunction => {
+export const redisSessionStore = ({ client, maxAge }: Options): SessionStore => {
   let promisifiedGet = promisify(client.get).bind(client);
   let promisifiedSetex = promisify(client.setex).bind(client);
   let promisifiedDel = promisify(client.del).bind(client);
   let promisifiedQuit = promisify(client.quit).bind(client);
-  return ({ maxAge }) => ({
+  return {
     async get(key) {
       let result = await promisifiedGet(key);
       if (typeof result === 'string') {
@@ -31,5 +32,5 @@ export const redisSessionStore = ({ client }: Options): SessionStoreFunction => 
     async disconnect() {
       await promisifiedQuit();
     },
-  });
+  };
 };
