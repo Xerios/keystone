@@ -1,5 +1,12 @@
 # @keystonejs/fields-wysiwyg-tinymce
 
+## 5.3.16
+
+### Patch Changes
+
+- Updated dependencies [[`b97216a65`](https://github.com/keystonejs/keystone/commit/b97216a6526fffcca8232d86b115c28cb19587bf), [`8d0be8a89`](https://github.com/keystonejs/keystone/commit/8d0be8a89e2d9b89826365f81f47b8d8863b93d0)]:
+  - @keystonejs/fields@22.0.0
+
 ## 5.3.15
 
 ### Patch Changes

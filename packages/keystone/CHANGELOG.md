@@ -1,5 +1,17 @@
 # @keystonejs/keystone
 
+## 19.2.0
+
+### Minor Changes
+
+- [`8d0be8a89`](https://github.com/keystonejs/keystone/commit/8d0be8a89e2d9b89826365f81f47b8d8863b93d0) [#4815](https://github.com/keystonejs/keystone/pull/4815) Thanks [@timleslie](https://github.com/timleslie)! - Added a `.sudo()` method to `context` objects, which is equivalent to the common operation `context.createContext({ skipAccessControl: true })`.
+
+### Patch Changes
+
+- Updated dependencies [[`28a61dc67`](https://github.com/keystonejs/keystone/commit/28a61dc67b990ebd16bfc4e1c0a1e9ffb0e54d81), [`92727414a`](https://github.com/keystonejs/keystone/commit/92727414af4e6efcb8d691f8197c6165ae469577)]:
+  - @keystonejs/access-control@7.0.0
+  - @keystonejs/app-version@2.0.0
+
 ## 19.1.0
 
 ### Minor Changes
